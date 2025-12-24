@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  mbd-menu-mongo-db:
+    image: mongo:latest
+    container_name: mbd-menu-mongo-db
+    networks:
+      - mbd-bridge
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mbd-menu
+      MONGO_INITDB_ROOT_PASSWORD: mbd-menu123
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+
+  mbd-rabbitmq:
+    image: rabbitmq:3-management
+    container_name: mbd-rabbitmq
+    networks:
+      - mbd-bridge
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmqdata:/var/lib/rabbitmq
+volumes:
+  mongodata:
+    driver: local
+  rabbitmqdata:
+    driver: local
+
+networks:
+  mbd-bridge:
+    driver: bridge
