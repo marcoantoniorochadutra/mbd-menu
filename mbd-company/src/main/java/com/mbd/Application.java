@@ -1,4 +1,4 @@
-package com.mbd.admin;
+package com.mbd;
 
 import com.mbd.infraestructure.config.CoreConfig;
 import lombok.AccessLevel;
@@ -17,5 +17,4 @@ public class Application {
     static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
-
 }
