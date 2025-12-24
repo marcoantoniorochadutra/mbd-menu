@@ -6,6 +6,16 @@ spring:
   application:
     name: mbd-company
 
+  datasource:
+    url: ${DATABASE_HOST:jdbc:postgresql://localhost:5432/db}
+    username: ${DATABASE_USER:postgres}
+    password: ${DATABASE_PASSWORD:pass}
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
   rabbitmq:
     host: ${RABBIT_MQ_HOST:localhost}
     port: ${RABBIT_MQ_PORT:5672}

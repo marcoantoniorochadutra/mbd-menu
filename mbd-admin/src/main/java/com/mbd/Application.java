@@ -1,4 +1,4 @@
-package com.mbd.delivery;
+package com.mbd;
 
 import com.mbd.infraestructure.config.CoreConfig;
 import lombok.AccessLevel;
@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
-
 
 @SpringBootApplication
 @Import(value = {
