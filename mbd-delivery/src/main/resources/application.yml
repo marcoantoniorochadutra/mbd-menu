@@ -1,0 +1,34 @@
+server:
+  port: ${PORT:8102}
+  servlet.context-path: /mbd/rest/
+
+spring:
+  application:
+    name: mbd-delivery
+
+  rabbitmq:
+    host: ${RABBIT_MQ_HOST:localhost}
+    port: ${RABBIT_MQ_PORT:5672}
+    management_port: ${RABBIT_MQ_MANAGEMENT_PORT:15672}
+    username: ${RABBIT_MQ_USER:guest}
+    password: ${RABBIT_MQ_PASSWORD:guest}
+    virtual-host: /
+
+    prefix: ${spring.application.name}
+    exchange:
+      - name: default.exchange
+        type: fanout
+        queues:
+          - name: debug-queue
+            ttl: 300000
+        bindings:
+          - queue: debug-queue
+            exchange: default.exchange
+            routingKey: "#"
+
+
+logging:
+  level:
+    root: INFO
+    com.mbd: INFO
+    com.mbd.core.amqp: DEBUG
