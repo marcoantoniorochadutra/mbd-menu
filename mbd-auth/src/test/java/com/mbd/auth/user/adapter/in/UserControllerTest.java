@@ -11,6 +11,7 @@ import com.mbd.utils.ControllerTestUtils;
 import jakarta.validation.constraints.NotBlank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
@@ -22,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(UserController.class)
 @DisplayName("Controller Test - User")
+@AutoConfigureMockMvc(addFilters = false)
 class UserControllerTest extends ControllerTestUtils {
 
     @MockitoBean
@@ -37,7 +39,7 @@ class UserControllerTest extends ControllerTestUtils {
         var cmd = CreateUserCommand.builder()
                 .name("Test User")
                 .email("testuser@email.com")
-                .password("pass")
+                .password("p@$as$1Abcs")
                 .build();
 
         var userId = UserId.generate();

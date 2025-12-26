@@ -1,5 +1,6 @@
 package com.mbd.auth.user.application;
 
+import com.mbd.auth.password.usecase.PasswordEncoderUseCase;
 import com.mbd.auth.user.domain.User;
 import com.mbd.auth.user.domain.UserBuilder;
 import com.mbd.auth.user.domain.UserDomainRepository;
@@ -15,11 +16,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class CreateUserService implements CreateUserUseCase {
 
     private final UserDomainRepository userRepository;
+    private final PasswordEncoderUseCase passwordEncryptService;
 
     @Override
     public UserId execute(CreateUserCommand cmd) {
-
-        User user = UserBuilder.from(cmd).build();
+        User user = UserBuilder.from(cmd)
+                .passwordEncoder(this.passwordEncryptService)
+                .build();
 
         this.userRepository.save(user);
 

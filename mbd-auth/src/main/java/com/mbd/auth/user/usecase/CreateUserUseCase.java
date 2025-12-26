@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 
@@ -22,6 +23,8 @@ public interface CreateUserUseCase extends UseCase<CreateUserCommand, UserId> {
         String name,
 
         @NotBlank(message = "{UserCommand.password.NotBlank}")
+        @Size(min = 5, message = "{UserCommand.password.Size.min}")
+        @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).+$", message = "{UserCommand.password.Pattern}")
         @Schema(example = "johnDoe123$", requiredMode = RequiredMode.REQUIRED)
         String password,
 

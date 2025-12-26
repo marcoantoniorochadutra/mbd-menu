@@ -1,14 +1,16 @@
 package com.mbd.auth.user.domain;
 
-import com.mbd.auth.sk.domain.enums.UserRoles;
+import com.mbd.auth.user.domain.enums.UserRoles;
+import com.mbd.auth.password.usecase.PasswordEncoderUseCase;
 import com.mbd.auth.user.domain.enums.UserStatus;
 import com.mbd.auth.user.usecase.CreateUserUseCase.CreateUserCommand;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.Objects.isNull;
 
 
 @NoArgsConstructor
@@ -21,8 +23,8 @@ public class UserBuilder {
     protected String password;
     protected UserStatus status;
     protected List<UserRoles> userRoles = new ArrayList<>();
-    protected Instant createdAt;
-    protected Instant lastLoginAt;
+
+    protected PasswordEncoderUseCase passwordEncoder;
 
     public static UserBuilder from(CreateUserCommand command) {
         return new UserBuilder()
@@ -58,9 +60,22 @@ public class UserBuilder {
         return this;
     }
 
+    public UserBuilder passwordEncoder(PasswordEncoderUseCase passwordEncoderUseCase) {
+        this.passwordEncoder = passwordEncoderUseCase;
+        return this;
+    }
+
     public User build() {
+        this.password = this.encodePassword();
         this.userRoles.add(UserRoles.USER);
         return new User(this);
+    }
+
+    private String encodePassword() {
+        if (isNull(this.passwordEncoder))
+            return this.password;
+
+        return this.passwordEncoder.encodePassword(this.password);
     }
 
 }

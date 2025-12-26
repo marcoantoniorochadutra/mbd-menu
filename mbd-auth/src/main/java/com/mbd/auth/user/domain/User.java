@@ -1,6 +1,6 @@
 package com.mbd.auth.user.domain;
 
-import com.mbd.auth.sk.domain.enums.UserRoles;
+import com.mbd.auth.user.domain.enums.UserRoles;
 import com.mbd.auth.user.domain.enums.UserStatus;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
