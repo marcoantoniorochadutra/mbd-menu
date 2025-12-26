@@ -1,18 +1,19 @@
 version: '3.9'
 
 services:
-  mbd-menu-mongo-db:
-    image: mongo:latest
-    container_name: mbd-menu-mongo-db
+  mbd-menu-postgres-db:
+    image: postgres:16
+    container_name: mbd-postgres
     networks:
       - mbd-bridge
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: mbd-menu
-      MONGO_INITDB_ROOT_PASSWORD: mbd-menu123
     ports:
-      - "27017:27017"
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: mbd_auth
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass@SecurE
     volumes:
-      - mongodata:/data/db
+      - pgdata:/var/lib/postgresql/data
 
   mbd-rabbitmq:
     image: rabbitmq:3-management
@@ -27,10 +28,13 @@ services:
       - "15672:15672"
     volumes:
       - rabbitmqdata:/var/lib/rabbitmq
+
 volumes:
   mongodata:
     driver: local
   rabbitmqdata:
+    driver: local
+  pgdata:
     driver: local
 
 networks:
