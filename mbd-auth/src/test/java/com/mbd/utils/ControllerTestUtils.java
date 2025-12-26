@@ -5,6 +5,7 @@ import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -30,6 +31,8 @@ public class ControllerTestUtils {
     @MockitoBean
     private ConnectionFactory connectionFactory;
 
+    @MockitoBean
+    private HttpSecurity httpSecurity;
 
     public ResultActions executePost(String url, Object body) throws Exception {
         return this.mockMvc.perform(post(url)

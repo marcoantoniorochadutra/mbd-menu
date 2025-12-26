@@ -47,6 +47,12 @@ spring:
 springdoc:
   override-with-generic-response: false
 
+mbd:
+  auth:
+    password:
+      pepper: ${MBD_AUTH_PASSWORD_PEPPER:P3pp&rS3cur&}
+
+
 logging:
   level:
     root: INFO
