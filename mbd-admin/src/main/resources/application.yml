@@ -8,9 +8,9 @@ spring:
     name: mbd-admin
 
   datasource:
-    url: ${DATABASE_HOST:jdbc:postgresql://localhost:5432/db}
+    url: ${DATABASE_HOST:jdbc:postgresql://localhost:5433/mbd_auth?currentSchema=dev}
     username: ${DATABASE_USER:postgres}
-    password: ${DATABASE_PASSWORD:pass}
+    password: ${DATABASE_PASSWORD:pass@SecurE}
 
   jpa:
     properties:

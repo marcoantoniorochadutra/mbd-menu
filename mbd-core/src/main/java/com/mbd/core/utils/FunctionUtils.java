@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Collection;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static java.util.Arrays.stream;
@@ -28,5 +29,13 @@ public class FunctionUtils {
         return isNull(array)
                 ? empty()
                 : stream(array);
+    }
+
+    public static <T, R> R getIfNotNullOrDefault(T value, Function<T, R> function, R defaultValue) {
+        return isNull(value) ? defaultValue : function.apply(value);
+    }
+
+        public static <T, R> R getIfNotNull(T value, Function<T, R> function) {
+        return isNull(value) ? null : function.apply(value);
     }
 }
